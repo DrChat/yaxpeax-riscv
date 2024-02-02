@@ -64,7 +64,7 @@ impl Instruction {
             OperandSpec::Imm12S => Some(Operand::Imm(self.field(FieldSpec::Imm12S) as i32)),
             OperandSpec::Imm12B => Some(Operand::JOffset(self.field(FieldSpec::Imm12B) as i32)),
             OperandSpec::Imm20U => Some(Operand::Imm(self.field(FieldSpec::Imm20U) as i32)),
-            OperandSpec::Imm20J => todo!(),
+            OperandSpec::Imm20J => Some(Operand::Imm(self.field(FieldSpec::Imm20J) as i32)),
             OperandSpec::BaseOffsetRs1I => Some(Operand::BaseOffset(
                 self.field(FieldSpec::Rs1) as u8,
                 self.field(FieldSpec::Imm12I) as i16,
