@@ -75,6 +75,18 @@ impl Instruction {
             )),
         }
     }
+
+    pub fn opcode(&self) -> &Opcode {
+        &self.opcode
+    }
+
+    pub fn operands(&self) -> Vec<Option<Operand>> {
+        self.operands.iter().map(|o| self.operand(o)).collect::<Vec<_>>()
+    }
+
+    pub fn word(&self) -> &u32 {
+        &self.word
+    }
 }
 
 impl yaxpeax_arch::Instruction for Instruction {
@@ -363,7 +375,7 @@ impl RiscVDecoder {
             }
             0b000_1111 => {
                 // FENCE opcode group
-                todo!()
+                Err(StandardDecodeError::InvalidOpcode)?
             }
             0b111_0011 => match (opc >> 20) & 0b1111_1111_1111 {
                 0b0000_0000_0000 => instruction.opcode = Opcode::ECALL,
